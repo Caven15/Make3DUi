@@ -24,4 +24,8 @@ export class SessionService {
   logout(){
     sessionStorage.clear();
   }
+
+  isConnected() : boolean {
+    return this.currentUser && this.currentUser != null;
+  } 
 }

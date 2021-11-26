@@ -22,7 +22,7 @@ export class LoginUtilisateurComponent implements OnInit {
 
     this.LoginForm = this._formBuilder.group({
       email : [null, [Validators.email,Validators.required]],
-      password : [null, [Validators.required, Validators.minLength(6), Validators.minLength(20)]]
+      password : [null, [Validators.required, Validators.minLength(2), Validators.minLength(20)]]
     })
   }
 
@@ -32,11 +32,13 @@ export class LoginUtilisateurComponent implements OnInit {
     this.user.Email = this.LoginForm.value["email"];
     this.user.Password = this.LoginForm.value["password"];
     let currentUser : User;
-    this._authService.login(this.user).subscribe(user => currentUser=user);
-    console.log(currentUser);
-    if (!currentUser && currentUser != null){
-      this._sessionService.currentUser=currentUser;
-      this._route.navigate(["home"]);
-    }
+    this._authService.Login(this.LoginForm.value).subscribe(user => {
+      currentUser = user;
+      console.log(currentUser);
+      if (currentUser && currentUser != null){
+        this._sessionService.currentUser=currentUser;
+        this._route.navigate(["utilisateur", 'utilisateur']);
+      }
+    });
   }
 }

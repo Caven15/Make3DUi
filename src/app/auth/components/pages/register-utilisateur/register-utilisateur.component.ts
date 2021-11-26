@@ -32,8 +32,9 @@ export class RegisterUtilisateurComponent implements OnInit {
   register(): void{
     console.log("register");
     this.conversion();// récupérer l'utilisateur
-    this._authService.register(this.user);
-    this._route.navigate(["login"]);
+    this._authService.Register(this.user);
+    // chargement du module ensuite le compenent 
+    this._route.navigate(["auth", "login"]);
   }
 
 
@@ -41,10 +42,9 @@ export class RegisterUtilisateurComponent implements OnInit {
   conversion(): void{
     this.user = new RegisterForm;
     this.user.Nom = this.registerForm.value["nom"];
-    this.user.Prenom = this.registerForm.value["Prenom"];
+    this.user.Prenom = this.registerForm.value["prenom"];
     this.user.DateNaissance = this.registerForm.value["dateNaissance"];
     this.user.Email = this.registerForm.value["email"];
     this.user.Password = this.registerForm.value["password"];
   }
-
 }
