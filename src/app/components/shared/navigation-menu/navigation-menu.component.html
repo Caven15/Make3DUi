@@ -1,0 +1,10 @@
+<!-- nav>ul>(li>a>div)*2 -->
+<nav>
+    <ul>
+        <li *ngFor="let navItem of routes">
+            <app-nav-item *ngIf="navItem.isVisible" [navItem]="navItem">
+                <img *ngIf="navItem.imgSrc" [src]="navItem.imgSrc">
+            </app-nav-item>
+        </li>
+    </ul>
+</nav>

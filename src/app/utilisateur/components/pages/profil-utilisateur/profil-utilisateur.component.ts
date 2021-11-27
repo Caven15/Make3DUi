@@ -22,7 +22,7 @@ export class ProfilUtilisateurComponent implements OnInit {
 
 chargerUtilisateur(): void {
   if(this._sessionService.isConnected()){
-    this._utilisateurService.Get().subscribe(user => {
+    this._utilisateurService.GetOne().subscribe(user => {
       this.utilisateur = user;
       console.log(this.utilisateur);
     });

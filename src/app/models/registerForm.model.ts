@@ -1,7 +1,7 @@
 export class RegisterForm {
-    Nom : string;
-    Prenom : string;
-    Email : string; 
-    DateNaissance : Date; 
-    Password : string;
+    nom : string;
+    prenom : string;
+    email : string; 
+    dateNaissance : Date; 
+    password : string;
 }

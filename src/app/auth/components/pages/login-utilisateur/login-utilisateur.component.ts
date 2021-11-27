@@ -29,8 +29,8 @@ export class LoginUtilisateurComponent implements OnInit {
   login(): void{
     console.log("connection");
     this.user = new LoginForm;
-    this.user.Email = this.LoginForm.value["email"];
-    this.user.Password = this.LoginForm.value["password"];
+    this.user.email = this.LoginForm.value["email"];
+    this.user.password = this.LoginForm.value["password"];
     let currentUser : User;
     this._authService.Login(this.LoginForm.value).subscribe(user => {
       currentUser = user;

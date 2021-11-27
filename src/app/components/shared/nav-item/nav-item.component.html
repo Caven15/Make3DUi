@@ -1,0 +1,11 @@
+<a routerLink="{{parentUrl}}{{navItem.url}}">
+    <ng-content></ng-content>
+    <div>{{navItem.title}}</div>
+</a>
+<ul *ngIf="navItem.children">
+    <li *ngFor="let navItemChild of navItem.children">
+        <app-nav-item parentUrl="{{parentUrl}}{{navItem.url}}" [navItem]="navItemChild">
+            <img *ngIf="navItemChild.imgSrc" [src]="navItemChild.imgSrc">
+        </app-nav-item>
+    </li>
+</ul>

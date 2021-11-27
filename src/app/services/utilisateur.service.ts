@@ -11,8 +11,8 @@ export class UtilisateurService {
 
   constructor(private _client: HttpClient) { }
 
-  Get() : Observable<User>{
-    var user = this._client.get<User>(`${environment.apiUrl}/Utilisateur`);
+  GetOne() : Observable<User>{
+    var user = this._client.get<User>(`${environment.apiUrl}/Utilisateur/GetOne`);
     return user;
   }
 }

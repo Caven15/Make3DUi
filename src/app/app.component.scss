@@ -1,0 +1,32 @@
+.flex-container{
+
+}
+.MainBody{
+    height: 100vh;
+    display: flex;
+}
+
+.MainBody div:first-child{
+    flex: 3;
+}
+.MainBody div:last-child{
+    flex: 9;
+}
+
+.BodyLeft{
+    background-color: rgb(109, 109, 109);
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 1px;
+}
+.BodyRight{
+    background-color: rgb(70, 70, 70);
+    color: rgb(255, 255, 255);
+    padding: 2px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 1px;
+}
+

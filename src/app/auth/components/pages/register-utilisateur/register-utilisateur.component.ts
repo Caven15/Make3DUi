@@ -41,10 +41,10 @@ export class RegisterUtilisateurComponent implements OnInit {
   // Récupérer l'utilisateur à enregistrer
   conversion(): void{
     this.user = new RegisterForm;
-    this.user.Nom = this.registerForm.value["nom"];
-    this.user.Prenom = this.registerForm.value["prenom"];
-    this.user.DateNaissance = this.registerForm.value["dateNaissance"];
-    this.user.Email = this.registerForm.value["email"];
-    this.user.Password = this.registerForm.value["password"];
+    this.user.nom = this.registerForm.value["nom"];
+    this.user.prenom = this.registerForm.value["prenom"];
+    this.user.dateNaissance = this.registerForm.value["dateNaissance"];
+    this.user.email = this.registerForm.value["email"];
+    this.user.password = this.registerForm.value["password"];
   }
 }

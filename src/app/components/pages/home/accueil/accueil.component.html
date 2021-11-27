@@ -1,1 +1,17 @@
-<p>accueil works!</p>
+<h1>Liste des articles</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Utilisateur</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let article of articles">
+            <th>{{article.nom}}</th>
+            <th>{{article.description}}</th>
+            <th>{{article.id_utilisateur}}</th>
+        </tr>
+    </tbody>
+</table>

@@ -7,11 +7,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './tools/intercepteur/jwt.Interceptor';
 import { AuthModule } from './auth/auth.module';
 import { UtilisateurModule } from './utilisateur/utilisateur.module';
+import { ArticleModule } from './article/article.module';
+import { NavItemComponent } from './components/shared/nav-item/nav-item.component';
+import { NavigationMenuComponent } from './components/shared/navigation-menu/navigation-menu.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    NavItemComponent,
+    NavigationMenuComponent,
     
   ],
   imports: [
@@ -22,7 +27,8 @@ import { UtilisateurModule } from './utilisateur/utilisateur.module';
     ReactiveFormsModule,    // ajout pour gerer les form group
     //module enfant
     AuthModule,
-    UtilisateurModule
+    UtilisateurModule,
+    ArticleModule
   ],
   exports: [
     FormsModule
