@@ -16,4 +16,6 @@ export class AccueilComponent implements OnInit {
   ngOnInit(): void {
     this._articleService.GetAll().subscribe(articles => this.articles = articles);
   }
+
+  
 }

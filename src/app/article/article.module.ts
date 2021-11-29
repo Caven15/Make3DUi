@@ -5,11 +5,13 @@ import { ArticleRoutingModule } from './article-routing.module';
 import { CreateComponent } from './components/pages/create/create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { DetailComponent } from './components/pages/detail/detail.component';
 
 
 @NgModule({
   declarations: [
-    CreateComponent
+    CreateComponent,
+    DetailComponent
   ],
   imports: [
     CommonModule,

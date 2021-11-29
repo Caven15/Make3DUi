@@ -10,7 +10,7 @@ import { UtilisateurService } from 'src/app/services/utilisateur.service';
   styleUrls: ['./profil-utilisateur.component.scss']
 })
 export class ProfilUtilisateurComponent implements OnInit {
-  public utilisateur! : User;
+  public utilisateur : User = new User;
 // Router sers a rediriger si l'utilisateur n'est pas connecter
 // sessionService va consulter les variables de session (sessionStorage)
 // UtilisateurService est lié au service du components en question

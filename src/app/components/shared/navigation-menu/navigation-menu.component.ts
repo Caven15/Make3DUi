@@ -13,6 +13,8 @@ export class NavigationMenuComponent implements OnInit {
 
   constructor(private _sessionService : SessionService) { }
 
+  public isConnected: boolean;
+  
   ngOnInit(): void {
     this.routes = [
       {title: "Acceuil", url: "home", isVisible: true},
@@ -27,6 +29,14 @@ export class NavigationMenuComponent implements OnInit {
         {title: "Profil ", url: "/utilisateur", isVisible: true}
       ]}
     ];
+    this.isConnected = this._sessionService.isConnected();
+    console.log('Est connecté 1: ' + this.isConnected);
+  }
+
+  logout(){
+    this._sessionService.logout();
+    console.log('Est connecté logout: ' + this.isConnected);
+    console.log(this._sessionService.currentUser);
   }
 
 }

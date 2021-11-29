@@ -23,6 +23,7 @@ export class SessionService {
 
   logout(){
     sessionStorage.clear();
+    this.currentUser = null;
   }
 
   isConnected() : boolean {

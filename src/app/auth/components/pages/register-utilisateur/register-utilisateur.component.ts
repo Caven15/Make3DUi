@@ -43,7 +43,7 @@ export class RegisterUtilisateurComponent implements OnInit {
     this.user = new RegisterForm;
     this.user.nom = this.registerForm.value["nom"];
     this.user.prenom = this.registerForm.value["prenom"];
-    this.user.dateNaissance = this.registerForm.value["dateNaissance"];
+    this.user.dateNaissance = new Date(this.registerForm.value["dateNaissance"]);
     this.user.email = this.registerForm.value["email"];
     this.user.password = this.registerForm.value["password"];
   }

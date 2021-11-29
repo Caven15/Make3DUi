@@ -1,0 +1,38 @@
+<div>
+    <dl>
+        <dt>
+            Titre :
+        </dt>
+        <dd>
+            {{article.nom}}
+        </dd>
+        <dt>
+            Description :
+        </dt>
+        <dd>
+            {{article.description}}
+        </dd>
+        <dt>
+            Créateur :
+        </dt>
+        <dd>
+            {{article.id_utilisateur}}
+        </dd>
+    </dl>
+</div>
+<div *ngIf="estCreateur; else estPasCreateur">
+    <button (click)="update">Modifier</button>
+    <button (click)="delete">Supprimer</button>
+</div>
+<ng-template #estPasCreateur>
+    <div *ngIf="!estSignaleParUserId;else estSignale">
+        <button (click)="signalement">Signaler</button>
+    </div>
+</ng-template>
+
+<ng-template #estSignale>
+    <button (click)="designaler">Designaler</button>
+</ng-template>
+<p>
+    <a [routerLink]="'/home/'">Accueil</a>
+</p>
