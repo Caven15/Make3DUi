@@ -3,7 +3,7 @@
     <div>{{navItem.title}}</div>
 </a>
 <ul *ngIf="navItem.children">
-    <li *ngFor="let navItemChild of navItem.children">
+    <li *ngFor="let navItemChild of navItem.children" class="nav-item">
         <app-nav-item parentUrl="{{parentUrl}}{{navItem.url}}" [navItem]="navItemChild">
             <img *ngIf="navItemChild.imgSrc" [src]="navItemChild.imgSrc">
         </app-nav-item>
