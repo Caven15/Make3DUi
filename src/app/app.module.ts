@@ -5,11 +5,12 @@ import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './tools/intercepteur/jwt.Interceptor';
-import { AuthModule } from './auth/auth.module';
-import { UtilisateurModule } from './utilisateur/utilisateur.module';
-import { ArticleModule } from './article/article.module';
-import { NavItemComponent } from './components/shared/nav-item/nav-item.component';
-import { NavigationMenuComponent } from './components/shared/navigation-menu/navigation-menu.component';
+import { NavItemComponent } from './modules/main/components/shared/nav-item/nav-item.component';
+import { NavigationMenuComponent } from './modules/main/components/shared/navigation-menu/navigation-menu.component';
+import { AuthModule } from './modules/auth/auth.module';
+import { UtilisateurModule } from './modules/utilisateur/utilisateur.module';
+import { ArticleModule } from './modules/article/article.module';
+
 
 
 @NgModule({

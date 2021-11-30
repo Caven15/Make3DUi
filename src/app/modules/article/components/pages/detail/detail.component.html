@@ -21,17 +21,17 @@
     </dl>
 </div>
 <div *ngIf="estCreateur; else estPasCreateur">
-    <button (click)="update">Modifier</button>
-    <button (click)="delete">Supprimer</button>
+    <button (click)="update()">Modifier</button>
+    <button (click)="delete()">Supprimer</button>
 </div>
 <ng-template #estPasCreateur>
     <div *ngIf="!estSignaleParUserId;else estSignale">
-        <button (click)="signalement">Signaler</button>
+        <button (click)="signalement()">Signaler</button>
     </div>
 </ng-template>
 
 <ng-template #estSignale>
-    <button (click)="designaler">Designaler</button>
+    <button (click)="designaler()">Designaler</button>
 </ng-template>
 <p>
     <a [routerLink]="'/home/'">Accueil</a>

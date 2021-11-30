@@ -37,17 +37,17 @@ export class ArticleService {
 
 
   Create(nom: string, description: string) {
-    return this._client.post(`${environment.apiUrl}/Article/Create`, {nom: nom, description: description}).subscribe();//
+    return this._client.post(`${environment.apiUrl}/Article/Create`, {nom: nom, description: description});//
   }
 
   Update(id: number, nom: string, description: string)
   {
-    return this._client.put(`${environment.apiUrl}/Article/${id}/Update`, {nom: nom, description: description}).subscribe();//
+    return this._client.put(`${environment.apiUrl}/Article/${id}/Update`, {nom: nom, description: description});//
   }
 
   Delete(id: number)
   {
-    return this._client.delete(`${environment.apiUrl}/Article/${id}/Delete`).subscribe();//
+    return this._client.delete(`${environment.apiUrl}/Article/${id}/Delete`);//
   }
 
 
@@ -80,12 +80,12 @@ export class ArticleService {
 
   Bloquer(id: number, motivation: string)
   {
-    return this._client.post(`${environment.apiUrl}/Article/${id}/Bloquer`, {motivation: motivation}).subscribe();//
+    return this._client.post(`${environment.apiUrl}/Article/${id}/Bloquer`, {motivation: motivation});//
   }
 
   Debloquer(id: number)
   {
-      return this._client.get(`${environment.apiUrl}/Article/${id}/Debloquer`).subscribe();//
+      return this._client.get(`${environment.apiUrl}/Article/${id}/Debloquer`);//
   }
 
   EstBloquer(id: number) : Observable<boolean> // Id article
