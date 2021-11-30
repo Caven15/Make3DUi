@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from 'src/app/models/article.model';
+import { Commentaire } from 'src/app/models/commentaire.model';
 import { ArticleService } from 'src/app/services/article.service';
 import { SessionService } from 'src/app/services/session.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
@@ -12,11 +14,13 @@ import { UtilisateurService } from 'src/app/services/utilisateur.service';
 })
 export class DetailComponent implements OnInit {
 
+  public commentaires: Commentaire[] = [];
+  public commentaireForm: FormGroup;
   public article: Article;
   public estCreateur: boolean;
   public estSignaleParUserId: boolean;
 
-  constructor(private _activatedRoute: ActivatedRoute, private _route: Router, private _articleService: ArticleService, private _sessionService: SessionService, private _utilisateurService: UtilisateurService) { }
+  constructor(private _activatedRoute: ActivatedRoute, private _route: Router, private _articleService: ArticleService, private _sessionService: SessionService, private _utilisateurService: UtilisateurService, private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.refresh();
@@ -47,6 +51,9 @@ export class DetailComponent implements OnInit {
               },
               complete: () => {
                 console.log('refresh OK');
+                this.commentaireForm = this._formBuilder.group({
+                  commentaire : [null, [Validators.required]]
+                });
               }
             }
           );
@@ -56,8 +63,6 @@ export class DetailComponent implements OnInit {
         }
       }
     );
-    
-    
   }
 
   update(){
@@ -96,5 +101,16 @@ export class DetailComponent implements OnInit {
         }
       }
     );
+  }
+
+  //================== PARTIE COMMENTAIRES
+  envoyerCommentaire(){
+    if(this.commentaireForm.invalid){
+      return;
+    }
+    let id_article: number = this.article.id;
+    let id_utilisateur: number = this._sessionService.currentUser.id;
+    let commentaire: string = this.commentaireForm.value['commentaire'];
+    // this._commentaireService.Create(id_article, id_utilisateur, commentaire).subscribe({error: (error) => {}, completed: () => {}})
   }
 }

@@ -1,0 +1,20 @@
+<h1>Liste des articles</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Utilisateur</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let article of articles">
+            <td>{{article.nom}}</td>
+            <td>{{article.description}}</td>
+            <td>{{article.id_utilisateur}}</td>
+            <td><a [routerLink]="'/article/detail/' + article.id">Details</a></td>
+        </tr>
+    </tbody>
+</table>
+

@@ -1,0 +1,21 @@
+<p>Etes-vous sûr de vouloir supprimer l'article suivant:</p>
+<div>
+    <dl>
+        <dt>
+            Titre :
+        </dt>
+        <dd>
+            {{article.nom}}
+        </dd>
+        <dt>
+            Description :
+        </dt>
+        <dd>
+            {{article.description}}
+        </dd>
+    </dl>
+</div>
+<div>
+    <button (click)="annuler()">Annuler</button>
+    <button (click)="delete()">Supprimer</button>
+</div>

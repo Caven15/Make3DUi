@@ -1,4 +1,5 @@
-<form [formGroup]="createForm" (ngSubmit)="create()">
+<h1>Modification de l'article</h1>>
+<form [formGroup]="updateForm" (ngSubmit)="update()">
     <div>
         <label for="">
             <p>Nom :</p>
@@ -11,5 +12,5 @@
             <input type="text" formControlName="description">
         </label>
     </div>
-    <input type="submit" value="Créer" [disabled]="createForm.invalid">
+    <input type="submit" value="Modifier" [disabled]="updateForm.invalid">
 </form>
