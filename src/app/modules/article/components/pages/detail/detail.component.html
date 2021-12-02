@@ -41,11 +41,11 @@
     <h1>Commentaires</h1>
     <form [formGroup]="commentaireForm" (ngSubmit)="envoyerCommentaire()">
         <input type="text" placeholder="Veuillez entrer votre commentaire ici..." formControlName="commentaire">
-        <input type="submit" value="Envoyer" [disabled]="commentaireForm.invalid">
+        <input type="submit" value="Envoyer">
     </form>
     <div>
         <ul *ngIf="commentaires.length > 0; else ngPasdeCommentaire">
-            <li *ngFor="let commentaire of commentaires">{{commentaire.commentaire}}</li>
+            <li *ngFor="let commentaire of commentaires">{{commentaire.commentaire}} : {{commentaire.date_envoi}}</li>
         </ul>
         <ng-template #ngPasdeCommentaire>
             <p>Il n'y a encore de commentaires pour cet article</p>

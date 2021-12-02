@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Article } from 'src/app/models/article.model';
-import { Commentaire } from 'src/app/models/commentaire.model';
+import { Article } from 'src/app/models/article/article.model';
+import { Commentaire } from 'src/app/models/commentaire/commentaire.model';
 import { ArticleService } from 'src/app/services/article.service';
+import { CommentaireService } from 'src/app/services/commentaire.service';
 import { SessionService } from 'src/app/services/session.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
@@ -16,11 +17,11 @@ export class DetailComponent implements OnInit {
 
   public commentaires: Commentaire[] = [];
   public commentaireForm: FormGroup;
-  public article: Article;
+  public article: Article = new Article;
   public estCreateur: boolean;
   public estSignaleParUserId: boolean;
 
-  constructor(private _activatedRoute: ActivatedRoute, private _route: Router, private _articleService: ArticleService, private _sessionService: SessionService, private _utilisateurService: UtilisateurService, private _formBuilder: FormBuilder) { }
+  constructor(private _activatedRoute: ActivatedRoute, private _route: Router, private _articleService: ArticleService, private _commentaireService: CommentaireService, private _sessionService: SessionService, private _utilisateurService: UtilisateurService, private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.refresh();
@@ -51,18 +52,37 @@ export class DetailComponent implements OnInit {
               },
               complete: () => {
                 console.log('refresh OK');
-                this.commentaireForm = this._formBuilder.group({
-                  commentaire : [null, [Validators.required]]
-                });
               }
             }
           );
+          // récupérer les commentaires
+          this.chargerCommentaires();
         },
         error: (errors) => {
           console.log(errors)
+        },
+        complete: () => {
+          
         }
       }
     );
+    this.commentaireForm = this._formBuilder.group({
+      commentaire : [null, [Validators.required]]
+    });
+  }
+
+  chargerCommentaires() : void{
+    this._commentaireService.GetAll().subscribe({
+      next: (commentaires) => {
+        this.commentaires = commentaires;
+      },
+      error: (errors) => {
+        console.log(errors)
+      },
+      complete: () =>{
+        console.log('chargerCommentaires OK');
+      }
+    })
   }
 
   update(){
@@ -93,7 +113,7 @@ export class DetailComponent implements OnInit {
       {
         next: (data) => {},
         error: (errors) => {
-          console.log(errors)
+          console.log(errors);
         },
         complete: () => {
           console.log('Désignaler article');
@@ -109,8 +129,17 @@ export class DetailComponent implements OnInit {
       return;
     }
     let id_article: number = this.article.id;
-    let id_utilisateur: number = this._sessionService.currentUser.id;
     let commentaire: string = this.commentaireForm.value['commentaire'];
-    // this._commentaireService.Create(id_article, id_utilisateur, commentaire).subscribe({error: (error) => {}, completed: () => {}})
+    this._commentaireService.Create({id_article: id_article, commentaire: commentaire}).subscribe(
+      {
+        error: (errors) => {
+          console.log(errors);
+        }, 
+        complete: () => {
+          this.commentaireForm.setValue({commentaire: ''});
+          this.chargerCommentaires();
+        }
+      }
+    );
   }
 }

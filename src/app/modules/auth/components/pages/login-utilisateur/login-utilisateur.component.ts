@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginForm } from 'src/app/models/loginForm.model';
-import { User } from 'src/app/models/user.model';
+import { LoginForm } from 'src/app/models/auth/loginForm.model';
+import { User } from 'src/app/models/utilisateur/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { SessionService } from 'src/app/services/session.service';
 

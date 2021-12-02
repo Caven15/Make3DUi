@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { INavItem } from 'src/app/models/inav-item';
+import { INavItem } from 'src/app/models/inav/inav-item';
 import bootstrap from 'bootstrap';
 
 @Component({

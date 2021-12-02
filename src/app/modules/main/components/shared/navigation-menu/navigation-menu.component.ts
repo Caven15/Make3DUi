@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { INavItem } from 'src/app/models/inav-item';
+import { INavItem } from 'src/app/models/inav/inav-item';
 import { SessionService } from 'src/app/services/session.service';
 import bootstrap from 'bootstrap';
 
