@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HubConnection } from '@aspnet/signalr'; // install => npm i @aspnet/signalr --save
+import * as signalR from '@aspnet/signalr';
 import { Article } from 'src/app/models/article/article.model';
 import { Commentaire } from 'src/app/models/commentaire/commentaire.model';
 import { ArticleService } from 'src/app/services/article.service';
 import { CommentaireService } from 'src/app/services/commentaire.service';
 import { SessionService } from 'src/app/services/session.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-detail',
@@ -20,11 +24,44 @@ export class DetailComponent implements OnInit {
   public article: Article = new Article;
   public estCreateur: boolean;
   public estSignaleParUserId: boolean;
+  private hubConnection: HubConnection;
 
   constructor(private _activatedRoute: ActivatedRoute, private _route: Router, private _articleService: ArticleService, private _commentaireService: CommentaireService, private _sessionService: SessionService, private _utilisateurService: UtilisateurService, private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.refresh();
+    this.hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl(`${environment.chatHubUrl}`).build();
+
+    this.hubConnection.start().then(() => {
+      console.log("connection started");
+    }).catch(err => console.log(err));
+
+    this.hubConnection.onclose(() => {
+      debugger;
+      setTimeout(() => {
+        debugger;
+        this.hubConnection.start().then(() => {
+          debugger;
+          console.log("connection started");
+        }).catch(err => console.log(err));
+      }, 5000);
+    });
+
+    // A la récéption de la liste des commentaires du serveur au client
+    this.hubConnection.on("recevoirCommentaires", (commentaires, id_article) => {// data : listes des commentaires
+      if(this.article.id == id_article){
+        this.commentaires = commentaires;
+         console.log("recevoirCommentaires");
+      }
+      
+    });
+  }
+
+  public stopConnection() {
+    this.hubConnection.start().then(() => {
+      console.log("stopped");
+    }).catch(err => console.log(err));
   }
 
   refresh(): void {
@@ -72,7 +109,7 @@ export class DetailComponent implements OnInit {
   }
 
   chargerCommentaires() : void{
-    this._commentaireService.GetAll().subscribe({
+    this._commentaireService.GetAllByArticleId(this.article.id).subscribe({
       next: (commentaires) => {
         this.commentaires = commentaires;
       },
@@ -130,7 +167,7 @@ export class DetailComponent implements OnInit {
     }
     let id_article: number = this.article.id;
     let commentaire: string = this.commentaireForm.value['commentaire'];
-    this._commentaireService.Create({id_article: id_article, commentaire: commentaire}).subscribe(
+    /*this._commentaireService.Create({id_article: id_article, commentaire: commentaire}).subscribe(
       {
         error: (errors) => {
           console.log(errors);
@@ -140,6 +177,8 @@ export class DetailComponent implements OnInit {
           this.chargerCommentaires();
         }
       }
-    );
+    );*/
+
+    this.hubConnection.invoke("CreateCommentaire", this._sessionService.currentUser.id, {id_article: id_article, commentaire: commentaire}).catch(err => console.log(err));
   }
 }

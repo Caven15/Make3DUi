@@ -4,7 +4,7 @@ export class Commentaire{
     id: number;
     id_article: number;
     id_utilisateur: number;
-    utilisateur: UserPublique = null;
+    nomCreateur: string;
     commentaire: string;
     date_envoi: Date;
     date_modif: Date;

@@ -21,19 +21,16 @@ export class ListeComponent implements OnInit {
       return;
     }
     // Si l'utilisateur est connecté
-    this._articleService.GetAll().subscribe({
-      next: (articles)  => {
-        this.articles = articles
-      },
-      error : (error) => {
-        console.log(error);
-      },
-      complete : () => {
-
+    this._articleService.GetAll().subscribe(
+      {
+        next: (articles)  => {
+          this.articles = articles
+        },
+        error : (error) => {
+          console.log(error);
+        },
+        complete : () => {}
       }
+    );   
   }
-    );
-      
-  }
-
 }

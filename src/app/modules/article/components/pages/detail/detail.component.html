@@ -16,7 +16,7 @@
             Créateur :
         </dt>
         <dd>
-            {{article.id_utilisateur}}
+            {{article.nomCreateur}}
         </dd>
     </dl>
 </div>
@@ -45,7 +45,7 @@
     </form>
     <div>
         <ul *ngIf="commentaires.length > 0; else ngPasdeCommentaire">
-            <li *ngFor="let commentaire of commentaires">{{commentaire.commentaire}} : {{commentaire.date_envoi}}</li>
+            <li *ngFor="let commentaire of commentaires">{{commentaire.nomCreateur}} : {{commentaire.commentaire}} [{{commentaire.date_envoi}}]</li>
         </ul>
         <ng-template #ngPasdeCommentaire>
             <p>Il n'y a encore de commentaires pour cet article</p>
