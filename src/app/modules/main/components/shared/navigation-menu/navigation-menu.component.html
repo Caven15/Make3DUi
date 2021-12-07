@@ -1,14 +1,25 @@
 <!-- nav>ul>(li>a>div)*2 -->
-<nav>
-    <ul class="nav justify-content-center">
-        <li *ngFor="let navItem of routes" class="nav-item">
-            <app-nav-item *ngIf="navItem.isVisible" [navItem]="navItem">
-                <img *ngIf="navItem.imgSrc" [src]="navItem.imgSrc">
-            </app-nav-item>
+<nav class="navbar navbar-expand-md navbar-dark sticky bg-dark">
+<div class="container-fluid">
+    <a class="navbar-brand" href="#">Make 3D</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav me-auto p-1">
+        <!---->
+            <li *ngFor="let navItem of routes" class="nav-item">
+        <app-nav-item *ngIf="navItem.isVisible" [navItem]="navItem">
+            <img *ngIf="navItem.imgSrc" [src]="navItem.imgSrc">
+        </app-nav-item>
         </li>
+        <!---->
     </ul>
+    <p *ngIf="isConnected" class="m-1 align">
+        <button class="btn btn-outline-danger" (click)="logout()">Déconnexion</button>
+    </p>
+    </div>
+</div>
 </nav>
-<p *ngIf="isConnected">
-    <button (click)="logout()">Déconnexion</button>
-</p>
-
+<main class="flex-shrink-0">
+</main>

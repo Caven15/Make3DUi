@@ -30,9 +30,12 @@ import { ArticleModule } from './modules/article/article.module';
     AuthModule,
     UtilisateurModule,
     ArticleModule
+
   ],
   exports: [
-    FormsModule
+    FormsModule,
+    ArticleModule
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

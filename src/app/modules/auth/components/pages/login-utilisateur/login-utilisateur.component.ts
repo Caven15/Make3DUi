@@ -16,7 +16,10 @@ export class LoginUtilisateurComponent implements OnInit {
   public LoginForm : FormGroup;
   public user : LoginForm;
 
-  constructor(private _route : Router, private _authService : AuthService, private _sessionService : SessionService, private _formBuilder : FormBuilder) { }
+  constructor(private _route : Router, 
+              private _authService : AuthService, 
+              private _sessionService : SessionService, 
+              private _formBuilder : FormBuilder) { }
 
   ngOnInit(): void {
 

@@ -1,0 +1,13 @@
+<div>
+    <div class="text-center m-2 border border-dark border-1">
+        <div class="col-10 m-auto">
+            <a [routerLink]="'/article/detail/' + articleItem.id">
+                <img [src]="getImageToShow()" class="img-thumbnail" alt="image" width="100%" height="auto">
+            </a>
+            <div class="d-flex">
+                <span class="ml-2 flex-grow-1 text-start">{{articleItem.nom}}</span>
+                <a class="ml-3" [routerLink]="'/article/listeByUser/' + articleItem.id_utilisateur">{{articleItem.nomCreateur}}</a>
+            </div>
+        </div>
+    </div>
+</div>

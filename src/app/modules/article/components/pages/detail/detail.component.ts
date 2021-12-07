@@ -21,7 +21,7 @@ export class DetailComponent implements OnInit {
 
   public commentaires: Commentaire[] = [];
   public commentaireForm: FormGroup;
-  public article: Article = new Article;
+  public article: Article = new Article();
   public estCreateur: boolean;
   public estSignaleParUserId: boolean;
   private hubConnection: HubConnection;

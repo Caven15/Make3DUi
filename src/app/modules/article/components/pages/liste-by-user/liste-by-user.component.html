@@ -1,0 +1,10 @@
+<h1 *ngIf="isCreateur; else ngPasCreateur">Liste de mes articles</h1>
+<ng-template #ngPasCreateur>
+    <h1 *ngIf="createur; else ngPasCreateur">Liste des articles de {{createur.nom + " " + createur.prenom}}</h1>
+</ng-template>
+
+<div class="container">
+    <div class="row">
+        <app-item *ngFor="let article of articles" [articleItem]="article" class="col-3 col-lg-3 col-md-4 col-sm-6"></app-item>
+    </div>
+</div>

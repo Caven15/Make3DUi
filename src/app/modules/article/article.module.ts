@@ -9,6 +9,8 @@ import { DetailComponent } from './components/pages/detail/detail.component';
 import { ListeComponent } from './components/pages/liste/liste.component';
 import { UpdateComponent } from './components/pages/update/update.component';
 import { DeleteComponent } from './components/pages/delete/delete.component';
+import { ListeByUserComponent } from './components/pages/liste-by-user/liste-by-user.component';
+import { ItemComponent } from './components/pages/item/item.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { DeleteComponent } from './components/pages/delete/delete.component';
     DetailComponent,
     ListeComponent,
     UpdateComponent,
-    DeleteComponent
+    DeleteComponent,
+    ListeByUserComponent,
+    ItemComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +29,9 @@ import { DeleteComponent } from './components/pages/delete/delete.component';
     HttpClientModule,
     ReactiveFormsModule,
     ArticleRoutingModule
+  ],
+  exports:[
+    ItemComponent
   ]
 })
 export class ArticleModule { }
