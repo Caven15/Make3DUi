@@ -11,6 +11,7 @@ import { UpdateComponent } from './components/pages/update/update.component';
 import { DeleteComponent } from './components/pages/delete/delete.component';
 import { ListeByUserComponent } from './components/pages/liste-by-user/liste-by-user.component';
 import { ItemComponent } from './components/pages/item/item.component';
+import { CommentaireComponent } from './components/pages/commentaire/commentaire.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ItemComponent } from './components/pages/item/item.component';
     UpdateComponent,
     DeleteComponent,
     ListeByUserComponent,
-    ItemComponent
+    ItemComponent,
+    CommentaireComponent
   ],
   imports: [
     CommonModule,

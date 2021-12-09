@@ -10,6 +10,9 @@ import { CommentaireService } from 'src/app/services/commentaire.service';
 import { SessionService } from 'src/app/services/session.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/services/auth.service';
+import { SafeUrl } from '@angular/platform-browser';
+import { FichierService } from 'src/app/services/fichier.service';
 
 
 @Component({
@@ -26,7 +29,16 @@ export class DetailComponent implements OnInit {
   public estSignaleParUserId: boolean;
   private hubConnection: HubConnection;
 
-  constructor(private _activatedRoute: ActivatedRoute, private _route: Router, private _articleService: ArticleService, private _commentaireService: CommentaireService, private _sessionService: SessionService, private _utilisateurService: UtilisateurService, private _formBuilder: FormBuilder) { }
+  public imageSources : SafeUrl[] = [];
+
+  constructor(private _activatedRoute: ActivatedRoute, 
+              private _route: Router, 
+              private _articleService: ArticleService, 
+              private _commentaireService: CommentaireService, 
+              private _authService : AuthService, 
+              private _utilisateurService: UtilisateurService, 
+              private _formBuilder: FormBuilder,
+              private _fichierService: FichierService) { }
 
   ngOnInit(): void {
     this.refresh();
@@ -51,6 +63,7 @@ export class DetailComponent implements OnInit {
     // A la récéption de la liste des commentaires du serveur au client
     this.hubConnection.on("recevoirCommentaires", (commentaires, id_article) => {// data : listes des commentaires
       if(this.article.id == id_article){
+        this.commentaireForm.setValue({commentaire: ''});
         this.commentaires = commentaires;
          console.log("recevoirCommentaires");
       }
@@ -65,7 +78,7 @@ export class DetailComponent implements OnInit {
   }
 
   refresh(): void {
-    if(!this._sessionService.isConnected()){
+    if(!this._authService.isConnected()){
       this._route.navigate(['auth', 'login']);
       return;
     }
@@ -81,8 +94,9 @@ export class DetailComponent implements OnInit {
             return;
           }
           // Si l'article existe
-          this.estCreateur = (this.article.id_utilisateur == this._sessionService.currentUser.id);
-          this._articleService.EstSignaleParUserId(this.article.id, this._sessionService.currentUser.id).subscribe(
+          this.getImageSourceURLs();// récupérer les images
+          this.estCreateur = (this.article.id_utilisateur == this._authService.currentUserValue.id);
+          this._articleService.EstSignaleParUserId(this.article.id, this._authService.currentUserValue.id).subscribe(
             {
               next : (estSignale) =>{
                 this.estSignaleParUserId = estSignale;
@@ -106,6 +120,28 @@ export class DetailComponent implements OnInit {
     this.commentaireForm = this._formBuilder.group({
       commentaire : [null, [Validators.required]]
     });
+  }
+
+  // Méthode de récupérations des images à afficher
+  getImageSourceURLs(){
+    if(this.article && this.article.id_fichiers && this.article.id_fichiers.length > 0){
+      this._fichierService.TelechargementMore(this.article.id_fichiers).subscribe(
+        {
+          next: (urls) => {
+            console.log('Image ok : ' + urls);
+            this.imageSources = urls;
+          },
+          error: (error) => {
+            console.log('Image pas ok : ');
+            this.imageSources = [];
+          }
+        }
+      );
+    }
+    else{
+      console.log('Image par défaut ');
+      this.imageSources = [];
+    }
   }
 
   chargerCommentaires() : void{
@@ -179,6 +215,6 @@ export class DetailComponent implements OnInit {
       }
     );*/
 
-    this.hubConnection.invoke("CreateCommentaire", this._sessionService.currentUser.id, {id_article: id_article, commentaire: commentaire}).catch(err => console.log(err));
+    this.hubConnection.invoke("CreateCommentaire", this._authService.currentUserValue.id, {id_article: id_article, commentaire: commentaire}).catch(err => console.log(err));
   }
 }

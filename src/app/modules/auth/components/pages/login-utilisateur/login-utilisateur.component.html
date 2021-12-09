@@ -1,23 +1,27 @@
-<div class="container">
-    <div class=" row justify-content-center">
-        <div class="col-4">
-                <main class="form-signin text-center">
-                <form [formGroup]="LoginForm" (ngSubmit)="login()">
-                  <img class="mb-4 m-5" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-                  <h1 class="h2 mb-3 fw-normal">Connexion</h1>
-              
-                  <div class="form-floating">
-                    <input type="email" formControlName="email" class="form-control mb-4" id="floatingInput" placeholder="name@example.com">
-                    <label for="floatingInput">E-mail :</label>
-                  </div>
-                  <div class="form-floating">
-                    <input  type="password" formControlName="password" class="form-control mb-4" id="floatingPassword" placeholder="Password">
-                    <label for="floatingPassword">Mot de passe :</label>
-                  </div>
-                  <input class="w-100 btn btn-lg btn-primary" type="submit"value="Connection">
-                </form>
-              </main>
-        </div>
+<div class="modal modal-signin position-static d-block  py-5" tabindex="-1" role="dialog" id="modalSignin">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-5 shadow bg-dark">
+      <div class="modal-header p-5 pb-4 border-bottom-0 ">
+        <!-- <h5 class="modal-title">Modal title</h5> -->
+        <h2 style="color: white;" class="fw-bold mb-0">Connexion</h2>
+      </div>
+      <div class="modal-body p-5 pt-0">
+        <form [formGroup]="LoginForm" (ngSubmit)="login()">
+          <div class="form-floating mb-3">
+            <input type="email" formControlName="email" class="form-control mb-4" id="floatingInput" placeholder="name@example.com">
+                  <label for="floatingInput">E-mail :</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input  type="password" formControlName="password" class="form-control mb-4" id="floatingPassword" placeholder="Password">
+                  <label for="floatingPassword">Mot de passe :</label>
+          </div>
+          <input class="w-100 btn btn-lg btn-danger" type="submit"value="Connection">
+        </form>
+      </div>
     </div>
+  </div>
 </div>
+
+
+
 

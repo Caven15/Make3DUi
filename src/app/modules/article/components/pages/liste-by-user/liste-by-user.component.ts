@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from 'src/app/models/article/article.model';
 import { UserPublique } from 'src/app/models/utilisateur/userPublique.model';
 import { ArticleService } from 'src/app/services/article.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { SessionService } from 'src/app/services/session.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
@@ -19,17 +20,17 @@ export class ListeByUserComponent implements OnInit {
 
   constructor(private _utilisateurService: UtilisateurService,
               private _articleService: ArticleService, 
-              private _sessionService : SessionService, 
+              private _authService : AuthService, 
               private _route: Router,
               private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    if(!this._sessionService.isConnected()){
+    if(!this._authService.isConnected()){
       this._route.navigate(['auth', 'login']);
       return;
     }
     // Si l'utilisateur est connecté
-    let connectedUserId: number = this._sessionService.currentUser.id;
+    let connectedUserId: number = this._authService.currentUserValue.id;
     let id: number;
     if(this._activatedRoute.snapshot.params['id']){
       id = parseInt(this._activatedRoute.snapshot.params['id']);

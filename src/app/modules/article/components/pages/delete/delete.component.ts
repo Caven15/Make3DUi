@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from 'src/app/models/article/article.model';
 import { ArticleService } from 'src/app/services/article.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { SessionService } from 'src/app/services/session.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
@@ -14,7 +15,7 @@ export class DeleteComponent implements OnInit {
 
   public article: Article;
 
-  constructor(private _activatedRoute: ActivatedRoute, private _route: Router, private _articleService: ArticleService, private _sessionService: SessionService, private _utilisateurService: UtilisateurService) { }
+  constructor(private _activatedRoute: ActivatedRoute, private _route: Router, private _articleService: ArticleService, private _authService : AuthService, private _utilisateurService: UtilisateurService) { }
 
   ngOnInit(): void {
     this.refresh();
@@ -22,7 +23,7 @@ export class DeleteComponent implements OnInit {
 
   refresh(): void {
     // L'utilisateur n'est pas connecté
-    if(!this._sessionService.isConnected()){
+    if(!this._authService.isConnected()){
       this._route.navigate(['auth', 'login']);
       return;
     }
@@ -38,7 +39,7 @@ export class DeleteComponent implements OnInit {
             return;
           }
           // Si l'article existe
-          if(this.article.id_utilisateur != this._sessionService.currentUser.id){// Si pas créateur
+          if(this.article.id_utilisateur != this._authService.currentUserValue.id){// Si pas créateur
             this._route.navigate(['article']); // charge index par default a condition que la page existe !
             return;
           }

@@ -1,6 +1,6 @@
-<h1 *ngIf="isCreateur; else ngPasCreateur">Liste de mes articles</h1>
+<h1 class="text-center m-3" *ngIf="isCreateur; else ngPasCreateur">Liste de mes articles</h1>
 <ng-template #ngPasCreateur>
-    <h1 *ngIf="createur; else ngPasCreateur">Liste des articles de {{createur.nom + " " + createur.prenom}}</h1>
+    <h1 class="text-center" *ngIf="createur; else ngPasCreateur">Liste des articles de {{createur.nom + " " + createur.prenom}}</h1>
 </ng-template>
 
 <div class="container">

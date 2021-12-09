@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginForm } from '../models/auth/loginForm.model';
 import { RegisterForm } from '../models/auth/registerForm.model';
@@ -11,7 +12,18 @@ import { User } from '../models/utilisateur/user.model';
 })
 export class AuthService {
 
-  constructor(private _client: HttpClient) { }
+  private _currentUserSubject : BehaviorSubject<User>
+  public currentUser : Observable<User>
+
+  public get currentUserValue(): User {
+    return this._currentUserSubject.value;
+  }
+
+  constructor(private _client: HttpClient, private _route: Router) { 
+    //
+    this._currentUserSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('currentUser')));
+    this.currentUser = this._currentUserSubject.asObservable();
+  }
 
   Register(user:RegisterForm) : void{
     this._client.post(`${environment.apiUrl}/Auth/Register`, user);
@@ -19,12 +31,51 @@ export class AuthService {
 
   Login(userLogin:LoginForm) : Observable<User>{//
     console.log(userLogin);
-    return this._client.post<any>(`${environment.apiUrl}/Auth/Login`, userLogin);/*{email: "aze", password: "aze"}.subscribe(user => {//
-      console.log('user1');
+    return this._client.post<any>(`${environment.apiUrl}/Auth/Login`, userLogin)
+    .pipe(map(user => {
+      // Inserer l'utilisateur dans le sessionStorage
+      sessionStorage.setItem('currentUser', JSON.stringify(user));
+      this._currentUserSubject.next(user);
       console.log(user);
-      console.log('user2');
       return user;
-    });*/
+    }));
   }
+
+  logout(){
+    sessionStorage.removeItem('currentUser');
+    this._currentUserSubject.next(null);
+    this._route.navigate(['auth', 'login']);
+  }
+
+  isConnected() : boolean {
+    return (this.currentUserValue != null);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 }

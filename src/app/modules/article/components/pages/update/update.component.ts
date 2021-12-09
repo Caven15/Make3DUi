@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from 'src/app/models/article/article.model';
 import { ArticleService } from 'src/app/services/article.service';
-import { SessionService } from 'src/app/services/session.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class UpdateComponent implements OnInit {
   public article: Article;
   public updateForm: FormGroup;
 
-  constructor(private _activatedRoute: ActivatedRoute, private _route: Router, private _articleService: ArticleService, private _sessionService: SessionService, private _formBuilder: FormBuilder) { }
+  constructor(private _activatedRoute: ActivatedRoute, private _route: Router, private _articleService: ArticleService, private _authService : AuthService, private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.refresh();
@@ -24,7 +24,7 @@ export class UpdateComponent implements OnInit {
 
   refresh(): void {
     // L'utilisateur n'est pas connecté
-    if(!this._sessionService.isConnected()){
+    if(!this._authService.isConnected()){
       this._route.navigate(['auth', 'login']);
       return;
     }
@@ -46,7 +46,7 @@ export class UpdateComponent implements OnInit {
             return;
           }
           // Si l'article existe
-          if(this.article.id_utilisateur != this._sessionService.currentUser.id){// Si pas créateur
+          if(this.article.id_utilisateur != this._authService.currentUserValue.id){// Si pas créateur
             this._route.navigate(['article']); // charge index par default a condition que la page existe !
             return;
           }

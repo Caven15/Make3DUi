@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
-import { SessionService } from 'src/app/services/session.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-create',
@@ -12,7 +12,7 @@ import { SessionService } from 'src/app/services/session.service';
 export class CreateComponent implements OnInit {
 
   public createForm : FormGroup;
-  constructor(private _articleService : ArticleService, private _route : Router, private _sessionService : SessionService, private _formBuilder : FormBuilder) { }
+  constructor(private _articleService : ArticleService, private _route : Router, private _authService : AuthService, private _formBuilder : FormBuilder) { }
 
   ngOnInit(): void {
     this.createForm = this._formBuilder.group({
@@ -22,7 +22,7 @@ export class CreateComponent implements OnInit {
   }
 
   create(){
-    if(!this._sessionService.isConnected()){
+    if(!this._authService.isConnected()){
       this._route.navigate(['auth','login']);
       return;
     }

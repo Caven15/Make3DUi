@@ -37,20 +37,33 @@
     <a [routerLink]="'/home/'">Accueil</a>
 </p>
 
+<div *ngIf="imageSources && imageSources.length > 0">
+    <h4>Liste des fichiers</h4>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div *ngFor="let imageSource of imageSources" class="col-3 col-lg-3 col-md-4 col-sm-6 ">
+                <img [src]="imageSource" class="img-thumbnail mt-1" alt="image@id_fichier" width="100%" height="auto">
+            </div>
+        </div>
+    </div>
+
+</div>
+
 <div>
     <h1>Commentaires</h1>
     <form [formGroup]="commentaireForm" (ngSubmit)="envoyerCommentaire()">
         <input type="text" placeholder="Veuillez entrer votre commentaire ici..." formControlName="commentaire">
         <input type="submit" value="Envoyer">
     </form>
-    <div>
-        <ul *ngIf="commentaires.length > 0; else ngPasdeCommentaire">
-            <li *ngFor="let commentaire of commentaires">
-                {{commentaire.nomCreateur}} : {{commentaire.commentaire}} [{{commentaire.date_envoi}}]
-            </li>
-        </ul>
-        <ng-template #ngPasdeCommentaire>
+    <div *ngIf="commentaires.length > 0; else ngPasdeCommentaire">
+        <div class="container">
+            <app-commentaire *ngFor="let commentaire of commentaires" [commentaire]="commentaire" class="center col-8"></app-commentaire>
+        </div>
+        </div>
+    <ng-template #ngPasdeCommentaire>
+        <div>
             <p>Il n'y a encore de commentaires pour cet article</p>
-        </ng-template>
-    </div>
+        </div>
+    </ng-template>
 </div>

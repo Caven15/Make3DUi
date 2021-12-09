@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { INavItem } from 'src/app/models/inav/inav-item';
+import { AuthService } from 'src/app/services/auth.service';
 import { SessionService } from 'src/app/services/session.service';
 
 
@@ -13,17 +14,27 @@ export class NavigationMenuComponent implements OnInit {
 
   public routes : INavItem[] = [];
 
-  constructor(private _sessionService : SessionService, private _route: Router) { }
+  public isConnected: boolean = false;
 
-  public isConnected: boolean;
+  constructor(private _authService : AuthService, private _route: Router) {
+    this.refresh();
+    this._authService.currentUser.subscribe(
+      {
+        next : (user) => {
+          this.isConnected = this._authService.isConnected();
+          this.refresh();
+          console.log('Est connecté 1: ' + this.isConnected);
+        }
+      }
+    )
+   }
   
   ngOnInit(): void {
-    this.refresh();
+    console.log('ngOnInit : ' + this.isConnected);
+    
   }
 
   refresh(): void{
-    this.isConnected = this._sessionService.isConnected();
-    console.log('Est connecté 1: ' + this.isConnected);
     if(this.isConnected){
       this.routes = [
         {title: "Acceuil", url: "home", isVisible: true},
@@ -40,31 +51,14 @@ export class NavigationMenuComponent implements OnInit {
         {title: "Connexion", url: "/auth/login", isVisible: !this.isConnected}
       ];
     }
-    
   }
 
   logout(){
-    this._sessionService.logout();
+    this._authService.logout();/*
     console.log('Est connecté logout: ' + this.isConnected);
-    console.log(this._sessionService.currentUser);
+    console.log(this._authService.currentUser);
     this.refresh();
-    this._route.navigate(['home']);
-  }
-
-  Inscription(){
-    this._route.navigate(["auth", "register"]);
-  }
-
-  Connexion(){
-    this._route.navigate(["auth", "login"]);
-  }
-
-  MesArticle(){
-    this._route.navigate(["article", "listeByUser"]);
-  }
-
-  CreationArticle(){
-    this._route.navigate(["article", "create"]);
+    this._route.navigate(['home']);*/
   }
 }
 

@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { LoginForm } from 'src/app/models/auth/loginForm.model';
 import { User } from 'src/app/models/utilisateur/user.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-login-utilisateur',
@@ -18,7 +17,6 @@ export class LoginUtilisateurComponent implements OnInit {
 
   constructor(private _route : Router, 
               private _authService : AuthService, 
-              private _sessionService : SessionService, 
               private _formBuilder : FormBuilder) { }
 
   ngOnInit(): void {
@@ -35,13 +33,16 @@ export class LoginUtilisateurComponent implements OnInit {
     this.user.email = this.LoginForm.value["email"];
     this.user.password = this.LoginForm.value["password"];
     let currentUser : User;
-    this._authService.Login(this.LoginForm.value).subscribe(user => {
-      currentUser = user;
-      console.log(currentUser);
-      if (currentUser && currentUser != null){
-        this._sessionService.currentUser=currentUser;
-        this._route.navigate(["utilisateur", 'utilisateur']);
+    this._authService.Login(this.LoginForm.value).subscribe(
+      {
+        next: (user) => {
+          currentUser = user;
+          console.log(currentUser);
+          if (currentUser && currentUser != null){
+            this._route.navigate(["utilisateur", 'utilisateur']);
+          }
+        }
       }
-    });
+    );
   }
 }
