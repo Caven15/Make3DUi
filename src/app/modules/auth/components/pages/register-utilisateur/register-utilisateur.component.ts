@@ -13,6 +13,7 @@ export class RegisterUtilisateurComponent implements OnInit {
 
   public registerForm : FormGroup;
   public user : RegisterForm;
+  public errorMessage : string = "";
 
   constructor(private _route : Router, private _authService : AuthService, private _formBuilder : FormBuilder) { }
 
@@ -31,10 +32,20 @@ export class RegisterUtilisateurComponent implements OnInit {
     // Enregistrer l'utilisateur à l'appui du bouton enregistrer
   register(): void{
     console.log("register");
+    this.errorMessage = "";
     this.conversion();// récupérer l'utilisateur
-    this._authService.Register(this.user);
-    // chargement du module ensuite le compenent 
-    this._route.navigate(["auth", "login"]);
+    this._authService.Register(this.user).subscribe(
+      {
+        next : (data) => {
+          // chargement du module ensuite le compenent 
+          this._route.navigate(["auth", "login"]);
+        }, 
+        error : (error) =>{
+          this.errorMessage = "l'enregistrement a échoué veuillez ressayer...";
+          console.log(error);
+        },
+      }
+    );
   }
 
 

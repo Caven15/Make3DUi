@@ -54,10 +54,10 @@ export class ArticleService {
  //======================= #region Signalements des articles
 
 
- Signalement(id: number)
- {
-   return this._client.get(`${environment.apiUrl}/Article/${id}/Signalement`);//.subscribe();//
- }
+Signalement(id: number)
+{
+  return this._client.get(`${environment.apiUrl}/Article/${id}/Signalement`);//.subscribe();//
+}
 
   Designaler(id: number) // Id article
   {

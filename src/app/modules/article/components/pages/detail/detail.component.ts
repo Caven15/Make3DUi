@@ -38,7 +38,8 @@ export class DetailComponent implements OnInit {
               private _authService : AuthService, 
               private _utilisateurService: UtilisateurService, 
               private _formBuilder: FormBuilder,
-              private _fichierService: FichierService) { }
+              private _fichierService: FichierService
+              ) { }
 
   ngOnInit(): void {
     this.refresh();

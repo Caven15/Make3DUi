@@ -39,7 +39,7 @@ export class LoginUtilisateurComponent implements OnInit {
           currentUser = user;
           console.log(currentUser);
           if (currentUser && currentUser != null){
-            this._route.navigate(["utilisateur", 'utilisateur']);
+            this._route.navigate(["home"]);
           }
         }
       }

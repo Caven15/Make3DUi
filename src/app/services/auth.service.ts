@@ -25,8 +25,8 @@ export class AuthService {
     this.currentUser = this._currentUserSubject.asObservable();
   }
 
-  Register(user:RegisterForm) : void{
-    this._client.post(`${environment.apiUrl}/Auth/Register`, user);
+  Register(user:RegisterForm) : Observable<any>{
+    return this._client.post(`${environment.apiUrl}/Auth/Register`, user);
   }
 
   Login(userLogin:LoginForm) : Observable<User>{//
@@ -50,32 +50,4 @@ export class AuthService {
   isConnected() : boolean {
     return (this.currentUserValue != null);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
 }

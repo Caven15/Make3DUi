@@ -1,0 +1,70 @@
+body{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.boite{
+    margin: 5px;
+    border-radius: 15px;
+    padding: 1px;
+}
+
+.top{
+    background-color: rgb(0, 153, 255);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 1px;
+}
+
+.MainBody{
+    display: flex;
+    flex: 1;
+}
+
+.MainBody div:first-child{
+    flex: 5;
+}
+.MainBody div:last-child{
+    flex: 5;
+}
+
+
+
+.bodyLeft{
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 1px;
+}
+.bodyRight{
+    color: rgb(0, 0, 0);
+    padding: 2px;
+    border-radius: 10px;
+    margin: 1px;
+}
+
+.bottom{
+    background-color: rgb(10, 177, 66);
+    color: white;
+    padding: 2px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 1px;
+}
+
+.commentaire{
+    border-radius: 10px;
+    background-color: rgb(39, 39, 39);
+    padding: 1%;
+}
+
+.profil{
+    border-radius: 10px;
+    background-color: rgb(39, 39, 39);
+    padding: 1%;
+    color: white;
+}

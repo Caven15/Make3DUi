@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class ItemComponent implements OnInit {
 
   @Input() articleItem : Article;
-  public imageSource : SafeUrl = "/assets/default.jpg";
+  public imageSource : SafeUrl = "/assets/default_2.jpg";
   
   constructor(private _fichierService: FichierService) { }
 

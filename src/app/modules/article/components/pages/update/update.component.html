@@ -1,16 +1,23 @@
-<h1>Modification de l'article</h1>>
-<form [formGroup]="updateForm" (ngSubmit)="update()">
-    <div>
-        <label for="">
-            <p>Nom :</p>
-            <input type="text" formControlName="nom">
-        </label>
+<div class="modal modal-signin position-static d-block  py-5" tabindex="-1" role="dialog" id="modalSignin">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-5 shadow bg-dark">
+            <div class="modal-header p-5 pb-4 border-bottom-0 ">
+                <!-- <h5 class="modal-title">Modal title</h5> -->
+                <h2 style="color: white;" class="fw-bold mb-0 text-center">Modification</h2>
+            </div>
+            <div class="modal-body p-5 pt-0">
+                <form [formGroup]="updateForm" (ngSubmit)="update()">
+                <div class="form-floating mb-3">
+                    <input type="text" formControlName="nom" class="form-control mb-4" id="floatingInput" placeholder="Nom de mon projet...">
+                        <label for="floatingInput">Nom :</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <textarea type="text" formControlName="description" class="form-control" id="floatingTextarea2"  placeholder="Description de mon projet..."  style="height: 250px"></textarea>
+                    <label for="floatingTextarea2">Description :</label>
+                </div>
+                <input class="w-100 btn btn-lg btn-primary" type="submit"value="Modifier" [disabled]="updateForm.invalid">
+                </form>
+            </div>
+        </div>
     </div>
-    <div>
-        <label for="">
-            <p>Description :</p>
-            <input type="text" formControlName="description">
-        </label>
-    </div>
-    <input type="submit" value="Modifier" [disabled]="updateForm.invalid">
-</form>
+</div>

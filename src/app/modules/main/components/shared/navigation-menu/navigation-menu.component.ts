@@ -27,7 +27,7 @@ export class NavigationMenuComponent implements OnInit {
         }
       }
     )
-   }
+  }
   
   ngOnInit(): void {
     console.log('ngOnInit : ' + this.isConnected);

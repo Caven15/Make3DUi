@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { JwtInterceptor } from './tools/intercepteur/jwt.Interceptor';
-import { NavItemComponent } from './modules/main/components/shared/nav-item/nav-item.component';
-import { NavigationMenuComponent } from './modules/main/components/shared/navigation-menu/navigation-menu.component';
 import { AuthModule } from './modules/auth/auth.module';
 import { UtilisateurModule } from './modules/utilisateur/utilisateur.module';
 import { ArticleModule } from './modules/article/article.module';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JwtInterceptor } from './tools/intercepteur/jwt.Interceptor';
+
+import { AppComponent } from './app.component';
+import { NavItemComponent } from './modules/main/components/shared/nav-item/nav-item.component';
+import { NavigationMenuComponent } from './modules/main/components/shared/navigation-menu/navigation-menu.component';
+
+
 
 
 
